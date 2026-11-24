@@ -3,14 +3,15 @@
 /* Nexus — THE WORDMARK, and nothing else */
 @font-face { font-family: "Nexus"; src: url("../../assets/fonts/Nexus.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
 
-/* Rajdhani — TITLES */
-@font-face { font-family: "Rajdhani"; src: url("../../assets/fonts/Rajdhani-Light.ttf") format("truetype"); font-weight: 300; font-style: normal; font-display: swap; }
-@font-face { font-family: "Rajdhani"; src: url("../../assets/fonts/Rajdhani-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "Rajdhani"; src: url("../../assets/fonts/Rajdhani-Medium.ttf") format("truetype"); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: "Rajdhani"; src: url("../../assets/fonts/Rajdhani-SemiBold.ttf") format("truetype"); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: "Rajdhani"; src: url("../../assets/fonts/Rajdhani-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; font-display: swap; }
+/* Ruda — READING TEXT. Chosen 2026-11-24 because it covers every pinyin tone mark,
+   including ǎ ǐ ǒ ǔ and the ü series (lǜchá) that Rajdhani and Barlow lacked. No italic
+   face exists, so italic text is slanted synthetically. */
+@font-face { font-family: "Ruda"; src: url("../../assets/fonts/Ruda-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Ruda"; src: url("../../assets/fonts/Ruda-Medium.ttf") format("truetype"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Ruda"; src: url("../../assets/fonts/Ruda-SemiBold.ttf") format("truetype"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Ruda"; src: url("../../assets/fonts/Ruda-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; font-display: swap; }
 
-/* Thasadith — PERSONAL NOTES */
+/* Thasadith — HEADINGS, TEA NAMES and PERSONAL NOTES */
 @font-face { font-family: "Thasadith"; src: url("../../assets/fonts/Thasadith-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "Thasadith"; src: url("../../assets/fonts/Thasadith-Italic.ttf") format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
 @font-face { font-family: "Thasadith"; src: url("../../assets/fonts/Thasadith-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; font-display: swap; }
@@ -19,13 +20,6 @@
 /* Offside — DETAILS / TAGS */
 @font-face { font-family: "Offside"; src: url("../../assets/fonts/Offside-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
 
-/* Barlow — GENERAL TEXT */
-@font-face { font-family: "Barlow"; src: url("../../assets/fonts/Barlow-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "Barlow"; src: url("../../assets/fonts/Barlow-Italic.ttf") format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
-@font-face { font-family: "Barlow"; src: url("../../assets/fonts/Barlow-Medium.ttf") format("truetype"); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: "Barlow"; src: url("../../assets/fonts/Barlow-MediumItalic.ttf") format("truetype"); font-weight: 500; font-style: italic; font-display: swap; }
-@font-face { font-family: "Barlow"; src: url("../../assets/fonts/Barlow-SemiBold.ttf") format("truetype"); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: "Barlow"; src: url("../../assets/fonts/Barlow-Bold.ttf") format("truetype"); font-weight: 700; font-style: normal; font-display: swap; }
 
 /* Script fallbacks (Noto Serif SC / Shippori Mincho / Noto Serif Devanagari / JetBrains Mono)
    are imported at the top of styles.css — CSS requires every @import to precede
@@ -33,12 +27,12 @@
 
 :root {
   /* families */
-  --font-logo: "Nexus", "Rajdhani", Georgia, serif;                                                                 /* the wordmark only */
-  --font-display: "Rajdhani", "Noto Serif SC", "Shippori Mincho", "Noto Serif Devanagari", Georgia, serif;          /* tea names, titles */
-  --font-body: "Barlow", "Noto Serif SC", "Shippori Mincho", "Noto Serif Devanagari", system-ui, sans-serif;        /* general text */
-  --font-hand: "Thasadith", "Barlow", cursive;                                                                      /* personal notes */
-  --font-tag: "Offside", "Barlow", sans-serif;                                                                      /* details, tags, chips */
-  --font-serif: var(--font-display);                                                                                /* legacy alias */
+  --font-logo: "Nexus", "Thasadith", system-ui, sans-serif;                                                             /* the wordmark only */
+  --font-display: "Thasadith", "Noto Serif SC", "Shippori Mincho", "Noto Serif Devanagari", system-ui, sans-serif;                                 /* headings, tea names */
+  --font-body: "Ruda", "Noto Serif SC", "Shippori Mincho", "Noto Serif Devanagari", system-ui, sans-serif;                                         /* reading text */
+  --font-hand: "Thasadith", "Ruda", cursive;                                                                        /* personal notes */
+  --font-tag: "Offside", "Ruda", sans-serif;                                                                        /* details, tags, chips */
+  --font-serif: var(--font-body);                                                                                   /* legacy name: means reading text */
   --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;                                          /* data */
 
   /* type scale */

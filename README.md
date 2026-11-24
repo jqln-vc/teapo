@@ -240,7 +240,9 @@ mapping — check `tailscale serve status` before claiming a port.
 
 ## Known gaps
 
-- **Fonts ship as `.ttf`** — about 2.8 MB. Converting to `.woff2` would more than halve it.
+- **Fonts ship as `.ttf`** — about 650 KB. Converting to `.woff2` would roughly halve it.
+- **Labels and tags** still use JetBrains Mono and Offside, which lack some pinyin tones
+  (ǐ ǒ ǔ, the ü series). Reading text and headings are fully covered; see *Typography*.
 - **Nexus**, the wordmark face, is freeware for non-commercial use only. Fine here; it would need
   a licence or a substitute if teapo were ever commercial.
 - **No offline mode**, by design for now — see *On the phone*.
@@ -250,10 +252,28 @@ mapping — check `tailscale serve status` before claiming a port.
 The code is [MIT](LICENSE). The bundled typefaces keep their own licences, listed below — MIT
 does not cover them.
 
+## Typography
+
+Every face that sets reading text or a heading covers the full pinyin set — each tone mark
+on a e i o u, and the ü series (**lǜchá**, 绿茶, is "green tea"). A missing glyph doesn't
+fail loudly: the browser borrows it from another font, at another weight, mid-word.
+
+| role | face |
+| :-- | :-- |
+| reading text | **Ruda** — no italic exists, so italics are slanted synthetically |
+| headings, tea names, personal notes | **Thasadith** |
+| wordmark | **Nexus** |
+| tags, chips | Offside |
+| labels, data | JetBrains Mono |
+| Chinese, Japanese, Devanagari | Noto Serif SC, Shippori Mincho, Noto Serif Devanagari |
+
+Rajdhani and Barlow were the originals and were replaced on 2026-11-24: both drop ǎ ǐ ǒ ǔ
+and the ü tones. To check a candidate before adopting it, test its `cmap` for those
+characters — e.g. with `fontTools` — rather than trusting a specimen.
+
 ## Credits
 
-Typefaces: [Barlow](https://fonts.google.com/specimen/Barlow),
-[Rajdhani](https://fonts.google.com/specimen/Rajdhani),
+Typefaces: [Ruda](https://fonts.google.com/specimen/Ruda),
 [Thasadith](https://fonts.google.com/specimen/Thasadith) and
 [Offside](https://fonts.google.com/specimen/Offside) under the SIL Open Font License;
 [Nexus](https://www.fontspace.com/nexus-font-f74191) (freeware, non-commercial); Noto Serif SC,
