@@ -1,0 +1,128 @@
+/* Teapo design tokens — colors */
+:root {
+  /* raw palette — tea, earth, leaves, poppies */
+  --paper: #F0E6CC;
+  --paper-warm: #EADEBE;
+  --paper-cool: #F6EFDA;
+  --cream: #FBF6E4;
+
+  /* dark-brown paper variant — a wood/hide surface for the same UI */
+  --paper-dark: #2A1810;         /* deep aged wood */
+  --paper-dark-warm: #3A2417;    /* aged edge */
+  --paper-dark-cool: #241209;    /* shadow pocket */
+  --cream-dark: #3E281B;         /* card surface on dark paper */
+
+  --ink: #2A1F14;
+  --ink-soft: #4E3F2C;
+  --ink-faint: #6B5B44;
+
+  /* ink for the dark paper */
+  --ink-on-dark: #F0E6CC;        /* body text on dark paper */
+  --ink-on-dark-soft: #D8C199;
+  --ink-on-dark-faint: #B39A72;
+
+  --brown: #4A2B1B;
+  --brown-soft: #7A4E36;
+  --brown-pale: #C8A98A;
+
+  --green: #4E8A3A;
+  --green-deep: #2E5A28;
+  --green-pale: #A9C48A;
+
+  --red: #B33427;
+  --red-deep: #7C1F17;
+  --red-pale: #E6A497;
+
+  --yellow: #D9A73B;
+  --yellow-deep: #A67821;
+  --yellow-pale: #F0D68A;
+
+  --white: #FBF7EC;
+  --black: #14100A;
+
+  /* semantic — surfaces (light default) */
+  --bg: var(--paper);
+  --bg-elevated: var(--cream);
+  --bg-sunken: var(--paper-warm);
+  --surface-card: var(--cream);
+  --surface-inset: var(--paper-warm);
+
+  /* semantic — text (all readable on light paper) */
+  --text: var(--ink);
+  --text-muted: var(--brown);
+  --text-faint: var(--brown-soft);
+  --text-heading: var(--brown);
+  --text-accent: var(--red);
+  --text-inverse: var(--paper);
+
+  /* semantic — line */
+  --line: #B29A6E;
+  --line-strong: var(--brown);
+  --line-hairline: #C8B48A;
+
+  /* semantic — status */
+  --accent: var(--red);
+  --accent-2: var(--green);
+  --accent-3: var(--yellow);
+  --success: var(--green-deep);
+  --warning: var(--yellow-deep);
+  --danger: var(--red);
+  --info: var(--brown-soft);
+
+  /* focus */
+  --focus-ring: 0 0 0 2px var(--paper), 0 0 0 4px var(--brown);
+}
+
+/* Dark-brown paper theme — OPT-IN ONLY. Apply .paper-dark to a container.
+   Deliberately NOT hooked to [data-theme="dark"]: that attribute is commonly set by
+   host/editor chrome, which would flip these tokens on light-paper surfaces and
+   produce light-on-light text. */
+.paper-dark, [data-theme="teapo-dark"] {
+  /* raw palette, re-pitched for a dark surface. Components and app code keep
+     using the same token names — only these values change. Tokens that carry
+     BOTH roles (ink and chip fill) get a light value here, and --white flips
+     to a dark ink so text on a solid chip stays legible. */
+  --paper: #241209;
+  --paper-warm: #33190E;
+  --paper-cool: #2E1710;
+  --cream: #3A2417;
+  --white: #1E120A;
+
+  --brown: #D8BC94;
+  --brown-soft: #B08F68;
+  --brown-pale: #7A5A3C;
+
+  --green: #6FA84F;
+  --green-deep: #9BC97E;
+  --green-pale: #6E9A50;
+
+  --red: #C05446;
+  --red-deep: #E8A79A;
+  --red-pale: #A8564A;
+
+  --yellow: #C79A3C;
+  --yellow-deep: #DFB65C;
+  --yellow-pale: #B08A3C;
+
+  --bg: var(--paper-dark);
+  --bg-elevated: var(--cream-dark);
+  --bg-sunken: var(--paper-dark-cool);
+  --surface-card: var(--cream-dark);
+  --surface-inset: var(--paper-dark-warm);
+
+  --text: var(--ink-on-dark);
+  --text-muted: var(--ink-on-dark-soft);
+  --text-faint: var(--ink-on-dark-faint);
+  --text-heading: #E9D6AE;
+  --text-accent: #E8A79A;
+  --text-inverse: var(--ink);
+
+  --line: #6B4A2E;
+  --line-strong: #B08A3C;
+  --line-hairline: #5A3820;
+
+  --focus-ring: 0 0 0 2px var(--paper-dark), 0 0 0 4px #F0D68A;
+
+  background: var(--bg);
+  color: var(--text);
+}

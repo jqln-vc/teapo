@@ -1,0 +1,46 @@
+:root {
+  /* 4px base scale */
+  --s-0: 0;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+
+  /* radii — soft, hand-shaped */
+  --r-none: 0;
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 14px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+  --r-blob: 40% 60% 55% 45% / 45% 40% 60% 55%;
+
+  /* borders */
+  --bw-1: 1px;
+  --bw-2: 2px;
+  --bw-thick: 3px;
+
+  /* shadows — mostly flat; use ink shadow subtly */
+  --shadow-1: 0 1px 0 rgba(42, 31, 20, 0.06);
+  --shadow-2: 0 2px 0 rgba(42, 31, 20, 0.08), 0 1px 8px rgba(42, 31, 20, 0.06);
+  --shadow-inset: inset 0 0 0 1px var(--line-hairline);
+
+  /* transitions */
+  --ease: cubic-bezier(0.4, 0.1, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur: 200ms;
+  --dur-slow: 380ms;
+
+  /* layout */
+  --page-max: 1200px;
+  --page-pad: 32px;
+}

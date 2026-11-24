@@ -1,0 +1,80 @@
+/* base — element resets and defaults */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); color: var(--text-heading); font-weight: var(--fw-regular); letter-spacing: var(--tr-tight); margin: 0; line-height: var(--lh-heading); }
+h1 { font-size: var(--fs-display); }
+h2 { font-size: var(--fs-title); }
+h3 { font-size: var(--fs-h1); }
+h4 { font-size: var(--fs-h2); }
+h5 { font-size: var(--fs-h3); }
+
+p { margin: 0; text-wrap: pretty; }
+small { font-size: var(--fs-sm); color: var(--text-muted); }
+
+a { color: var(--text-accent); text-decoration: underline; text-decoration-color: var(--red-pale); text-underline-offset: 3px; text-decoration-thickness: 1px; transition: color var(--dur) var(--ease), text-decoration-color var(--dur) var(--ease); }
+a:hover { color: var(--red-deep); text-decoration-color: var(--red); }
+
+hr { border: 0; border-top: 1px solid var(--line); margin: var(--s-6) 0; }
+
+code, kbd, pre, samp { font-family: var(--font-mono); font-size: 0.92em; }
+
+::selection { background: var(--yellow-pale); color: var(--ink); }
+
+/* type utilities */
+.t-logo { font-family: var(--font-logo); letter-spacing: 0.02em; font-feature-settings: "kern" 0; }
+.t-hand { font-family: var(--font-hand); font-weight: var(--fw-regular); }
+.t-tag { font-family: var(--font-tag); letter-spacing: 0.01em; }
+.t-mono { font-family: var(--font-mono); }
+.t-caps { text-transform: uppercase; letter-spacing: var(--tr-caps); font-size: var(--fs-xs); }
+.t-italic { font-style: italic; font-family: var(--font-body); }
+.t-muted { color: var(--text-muted); }
+.t-faint { color: var(--text-faint); }
+.t-accent { color: var(--text-accent); }
+.t-num { font-variant-numeric: tabular-nums; font-family: var(--font-mono); }
+
+.rule { display: block; height: 1px; background: var(--line); }
+.rule-dashed { display: block; height: 1px; background: repeating-linear-gradient(to right, var(--line) 0 4px, transparent 4px 8px); }
+
+/* Textures — organic, subtle overlays. Apply as a class on any surface. */
+.tex-grain {
+  background-image:
+    var(--tex-image, none),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0.16  0 0 0 0 0.12  0 0 0 0 0.08  0 0 0 0.35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>");
+  background-blend-mode: multiply;
+  background-color: var(--bg);
+}
+.tex-veins {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'><g fill='none' stroke='%234A2B1B' stroke-opacity='0.10' stroke-width='0.6' stroke-linecap='round'><path d='M0 60 Q80 40 160 70 T320 55'/><path d='M0 130 Q90 118 180 148 T320 132'/><path d='M0 208 Q70 188 150 215 T320 198'/><path d='M0 274 Q100 256 200 284 T320 268'/><path d='M40 0 Q56 90 30 180 T60 320'/><path d='M170 0 Q186 100 158 200 T190 320'/><path d='M280 0 Q296 110 264 210 T294 320'/></g></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.16  0 0 0 0 0.12  0 0 0 0 0.08  0 0 0 0.22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-color: var(--bg);
+}
+.tex-wood {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><defs><filter id='w'><feTurbulence type='turbulence' baseFrequency='0.012 0.5' numOctaves='2' seed='11'/><feColorMatrix values='0 0 0 0 0.09  0 0 0 0 0.05  0 0 0 0 0.03  0 0 0 0.55 0'/></filter></defs><rect width='100%' height='100%' filter='url(%23w)'/></svg>");
+  background-color: var(--bg);
+  background-blend-mode: multiply;
+}
+.tex-leaf {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><g fill='none' stroke='%234E8A3A' stroke-opacity='0.10' stroke-width='0.8' stroke-linecap='round'><path d='M40 130 Q80 90 130 130 Q80 170 40 130 Z'/><path d='M40 130 Q85 130 130 130'/><path d='M60 118 Q80 128 100 120'/><path d='M60 142 Q80 132 100 140'/><path d='M180 60 Q220 25 260 60 Q220 95 180 60 Z'/><path d='M180 60 Q220 60 260 60'/><path d='M150 220 Q190 190 230 220 Q190 250 150 220 Z'/><path d='M150 220 Q190 220 230 220'/></g></svg>");
+  background-color: var(--bg);
+}
+
+/* When a texture is layered on a dark paper theme, invert stroke tone. */
+.paper-dark .tex-veins, [data-theme="teapo-dark"] .tex-veins {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'><g fill='none' stroke='%23F0D68A' stroke-opacity='0.08' stroke-width='0.6' stroke-linecap='round'><path d='M0 60 Q80 40 160 70 T320 55'/><path d='M0 130 Q90 118 180 148 T320 132'/><path d='M0 208 Q70 188 150 215 T320 198'/><path d='M0 274 Q100 256 200 284 T320 268'/><path d='M40 0 Q56 90 30 180 T60 320'/><path d='M170 0 Q186 100 158 200 T190 320'/><path d='M280 0 Q296 110 264 210 T294 320'/></g></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.94  0 0 0 0 0.86  0 0 0 0 0.65  0 0 0 0.10 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}

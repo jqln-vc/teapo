@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#F0E6CC" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>teapo</title>
+    <style>
+      .print-mark { display: none; }
+      @media print {
+        .print-mark { display: flex !important; justify-content: center; margin: 0 0 60px; }
+        @page { margin: 16mm; }
+        body { background: #fff !important; }
+        #root > div > header, .no-print { display: none !important; }
+        #root > div > main { padding: 0 !important; }
+      }
+    </style>
+  </head>
+  <body class="tex-grain" style="margin: 0; min-height: 100vh">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
