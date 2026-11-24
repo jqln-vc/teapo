@@ -35,12 +35,12 @@ export function DetailView({ tea, onBack, onEdit, onDelete, onChange }) {
         ←
       </button>
 
-      <header style={{ display: "flex", justifyContent: "space-between", alignItems: "stretch", gap: 24 }}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+      <header className="tea-head">
+        <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
           <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: c.line, letterSpacing: "0.14em", textTransform: "uppercase" }}>
             {[familyLabel(tea.family), tea.country].filter(Boolean).join(" · ")}
           </div>
-          <h1 style={{ fontSize: 64, lineHeight: 1, margin: "6px 0 0", color: c.ink }}>{tea.name || "untitled"}</h1>
+          <h1 className="tea-title wrap-anywhere" style={{ color: c.ink }}>{tea.name || "untitled"}</h1>
           {tea.kanji && <div style={{ fontFamily: "var(--font-display)", fontSize: 32, color: c.line, marginTop: 4 }}>{tea.kanji}</div>}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", paddingTop: 20 }}>
             {(tea.tags || []).map((tag) => (
@@ -51,13 +51,13 @@ export function DetailView({ tea, onBack, onEdit, onDelete, onChange }) {
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12, flex: "0 0 auto" }}>
+        <div className="tea-aside">
           <div className="no-print" style={{ display: "flex", gap: 6 }}>
             <IconBtn kind="edit" color={c.ink} size={34} title="edit" onClick={onEdit} />
             <IconBtn kind="pdf" color={c.ink} size={34} title="export to PDF" onClick={() => window.print()} />
             <IconBtn kind="del" color="var(--red)" size={34} title="remove this tea" onClick={onDelete} />
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,155px)", gap: 10 }}>
+          <div className="tea-photos">
             {SLOTS.map(([role, hint]) => {
               const row = grouped[role]?.[0] ?? null;
               return (
@@ -65,7 +65,7 @@ export function DetailView({ tea, onBack, onEdit, onDelete, onChange }) {
                   key={role}
                   row={row}
                   placeholder={hint.replace("{name}", tea.name || "this tea")}
-                  style={{ width: 155, height: 115 }}
+                  style={{ width: "100%", height: 115 }}
                   onUpload={(file) =>
                     imagesApi
                       .upload(file, { parentType: "tea", parentId: tea.id, role, siblings: allImages, replace: true })
@@ -79,8 +79,8 @@ export function DetailView({ tea, onBack, onEdit, onDelete, onChange }) {
         </div>
       </header>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 32 }}>
-        <div>
+      <div className="tea-body">
+        <div style={{ minWidth: 0 }}>
           <div style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: c.ink, fontSize: 13, marginBottom: 6 }}>info</div>
           <Md style={{ fontFamily: "var(--font-serif)", fontSize: 20, lineHeight: 1.55, color: "var(--text)" }}>{tea.notes}</Md>
 

@@ -4,6 +4,7 @@
 @import "./tokens/typography.css";
 @import "./tokens/spacing.css";
 @import "./base.css";
+@import "./layout.css";
 
 /* app additions */
 .no-print { }

@@ -101,9 +101,9 @@ export function LibraryView({ teas, onOpen, onAdd, onReorder }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-      <header style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24 }}>
+      <header className="page-head">
         <div>
-          <h1 style={{ fontSize: 48, lineHeight: 1, margin: 0, color: "var(--brown)" }}>the collection</h1>
+          <h1 className="page-title" style={{ color: "var(--brown)" }}>the collection</h1>
           <p style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: "var(--text-muted)", marginTop: 8 }}>
             what I have found, what I have poured
           </p>
@@ -113,9 +113,9 @@ export function LibraryView({ teas, onOpen, onAdd, onReorder }) {
 
       <Ornament variant="flourish" color="var(--green)" />
 
-      <div style={{ display: "grid", gridTemplateColumns: "minmax(160px,0.62fr) auto", gap: 16, alignItems: "end" }}>
+      <div className="lib-filters">
         <Input fullWidth label="find" value={q} onChange={(e) => setQ(e.target.value)} />
-        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "flex-end" }}>
+        <div className="lib-families">
           {families.map((f) => {
             const c = f === "all" ? { chip: "var(--brown)" } : tone(familyTone(f));
             const on = family === f;
@@ -169,7 +169,7 @@ export function LibraryView({ teas, onOpen, onAdd, onReorder }) {
           )}
         </div>
 
-        <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
           <span style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: 13, color: "var(--text-muted)", marginRight: 4 }}>order</span>
           {SORTS.map(([k, label]) => (
             <Chip key={k} on={sort === k} onClick={() => setSort(k)}>
@@ -185,7 +185,7 @@ export function LibraryView({ teas, onOpen, onAdd, onReorder }) {
         </p>
       )}
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16 }}>
+      <div className="lib-grid">
         {shown.map((t) => {
           const c = tone(familyTone(t.family));
           return (
@@ -219,7 +219,7 @@ export function LibraryView({ teas, onOpen, onAdd, onReorder }) {
                 >
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: 3, minWidth: 0, flex: 1 }}>
-                      <div style={{ fontFamily: "var(--font-display)", fontSize: 28, color: c.ink, lineHeight: 1.15 }}>{t.name || "untitled"}</div>
+                      <div className="wrap-anywhere" style={{ fontFamily: "var(--font-display)", fontSize: 28, color: c.ink, lineHeight: 1.15 }}>{t.name || "untitled"}</div>
                       <div style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: "var(--text-muted)", fontSize: 13 }}>
                         {[t.region, t.country].filter(Boolean).join(" · ")}
                       </div>

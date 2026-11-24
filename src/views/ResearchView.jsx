@@ -92,13 +92,13 @@ function ResearchRow({ item, onOpen, editing, onSave, onDelete, onChange, onMove
       onClick={() => onOpen(item.id)}
     >
       <div style={{ flex: 1, minWidth: 0, display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
-        <div style={{ fontFamily: "var(--font-display)", fontSize: 18, color: c.ink, lineHeight: 1.15, flex: "0 0 auto" }}>{item.title || "untitled"}</div>
+        <div style={{ fontFamily: "var(--font-display)", fontSize: 18, color: c.ink, lineHeight: 1.15, flex: "0 1 auto", minWidth: 0 }}>{item.title || "untitled"}</div>
         <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
           {(item.topics || []).map(([t, k], i) => (
             <TopicChip key={`${t}-${i}`} label={t} kind={k} />
           ))}
         </div>
-        <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.45, color: DETAIL, flex: "1 1 260px", minWidth: 220, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+        <p style={{ margin: 0, fontSize: 12.5, lineHeight: 1.45, color: DETAIL, flex: "1 1 260px", minWidth: 0, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
           {mdPreview(item.description, 220)}
         </p>
       </div>
@@ -139,7 +139,7 @@ function ResearchDetail({ item, onBack, onChange, onDelete }) {
           </div>
         ) : (
           <>
-            <h1 style={{ margin: 0, fontSize: 46, lineHeight: 1.05, color: c.ink }}>{item.title || "untitled"}</h1>
+            <h1 className="research-title wrap-anywhere" style={{ color: c.ink }}>{item.title || "untitled"}</h1>
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
               {(item.topics || []).map(([t, k], i) => (
                 <TopicChip key={`${t}-${i}`} label={t} kind={k} />
@@ -152,8 +152,8 @@ function ResearchDetail({ item, onBack, onChange, onDelete }) {
 
       <Ornament variant="leaf" color={c.line} />
 
-      <div style={{ display: "grid", gridTemplateColumns: "1.45fr 1fr", gap: 34, alignItems: "start" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 26 }}>
+      <div className="research-body">
+        <div style={{ display: "flex", flexDirection: "column", gap: 26, minWidth: 0 }}>
           <section style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {edit ? (
               <Inp mono value={item.findings_title ?? "findings"} onChange={(v) => onChange({ findings_title: v })} placeholder="section title" />
@@ -321,9 +321,9 @@ export function ResearchView() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
       <ErrorNote error={items.writeError} onDismiss={items.dismissError} />
-      <header style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24 }}>
+      <header className="page-head">
         <div style={{ maxWidth: 660 }}>
-          <h1 style={{ fontSize: 48, lineHeight: 1, margin: 0, color: "var(--green-deep)" }}>the exploration</h1>
+          <h1 className="page-title" style={{ color: "var(--green-deep)" }}>the exploration</h1>
           <p style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: DETAIL, marginTop: 8, fontSize: 16 }}>
             what I have wondered, where I have explored, what I have learned
           </p>

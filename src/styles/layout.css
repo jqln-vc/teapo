@@ -1,0 +1,135 @@
+/* layout — the responsive structure of the views.
+ *
+ * The views style themselves inline, and an inline declaration always beats a
+ * class, so a media query cannot reach it. Every property that has to change
+ * with the viewport therefore lives here instead, on a class the view sets, and
+ * the view leaves that property out of its inline style.
+ *
+ * Breakpoints:
+ *   <= 980px  tablet: the guide grid drops to two columns, the side ornaments go
+ *   <= 720px  phone:  every multi-column layout stacks, gutters and display type
+ *                     shrink
+ *
+ * Both are screen-only. A printed A4 page is about 680px wide, and the PDF export
+ * should keep the desktop layout rather than fall into the phone one.
+ */
+
+:root {
+  /* --page-pad (32px) is defined in tokens/spacing.css and narrowed below. */
+  --card-pad-md: 24px;
+  --card-pad-lg: 36px;
+}
+
+/* ---------------------------------------------------------------- shell */
+
+.shell-header { padding: 28px var(--page-pad) 0; }
+.shell-tally { padding: 14px var(--page-pad) 0; }
+.shell-main { padding: 28px var(--page-pad) 56px; }
+
+/* ---------------------------------------------------------------- shared */
+
+/* Page title row: title block on the left, the add button on the right. */
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+.page-head > :first-child { min-width: 0; }
+.page-title { font-size: 48px; line-height: 1; margin: 0; }
+
+/* Long unbroken words (a tea name, a Latin binomial) wrap instead of
+   pushing the page sideways. */
+.wrap-anywhere { overflow-wrap: anywhere; }
+
+/* ---------------------------------------------------------------- collection */
+
+.lib-filters { display: grid; grid-template-columns: minmax(160px, 0.62fr) auto; gap: 16px; align-items: end; }
+.lib-families { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.lib-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+
+/* ---------------------------------------------------------------- tea page */
+
+.tea-head { display: flex; justify-content: space-between; align-items: stretch; gap: 24px; }
+.tea-title { font-size: 64px; line-height: 1; margin: 6px 0 0; }
+.tea-aside { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; flex: 0 0 auto; }
+.tea-photos { display: grid; grid-template-columns: repeat(2, 155px); gap: 10px; }
+.tea-body { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 32px; }
+
+/* ---------------------------------------------------------------- add / edit */
+
+.add-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+
+/* ---------------------------------------------------------------- guide */
+
+.guide-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+.guide-block { grid-column: span var(--span, 1); min-height: var(--min-h, auto); }
+
+/* Block tools appear on hover with a mouse; a touch screen has no hover, so
+   there they are always shown. */
+.block-tool { opacity: 0; transition: opacity 0.14s var(--ease, ease); }
+.guide-block:hover .block-tool,
+.guide-block:focus-within .block-tool { opacity: 1; }
+@media (hover: none) {
+  .block-tool { opacity: 1; }
+  /* HTML drag and drop never fires from a touch, so the grip would do nothing. */
+  .block-grip { display: none !important; }
+}
+
+.guide-entry-title { display: flex; align-items: baseline; gap: 6px 14px; flex-wrap: wrap; }
+.guide-entry-title h1 { margin: 0; font-size: 44px; line-height: 1; }
+
+/* min() keeps a 320px track from overflowing a narrower container. */
+.glossary { margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 18px 32px; }
+
+/* ---------------------------------------------------------------- exploration */
+
+.research-title { margin: 0; font-size: 46px; line-height: 1.05; }
+.research-body { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 34px; align-items: start; }
+
+/* ================================================================ tablet */
+
+@media screen and (max-width: 980px) {
+  :root { --page-pad: 24px; }
+
+  /* The dotted rules flanking the nav are 220px each; there is no room. */
+  .shell-dotrule { display: none !important; }
+
+  .guide-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .guide-block:not([data-span="1"]) { grid-column: 1 / -1; }
+  /* Resizing is measured in desktop columns, so it only makes sense there. */
+  .block-resize { display: none !important; }
+
+  .research-body { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ================================================================ phone */
+
+@media screen and (max-width: 720px) {
+  :root {
+    --page-pad: 16px;
+    --card-pad-md: 18px;
+    --card-pad-lg: 20px;
+  }
+
+  .shell-header { padding-top: 20px; }
+  .shell-main { padding-top: 22px; padding-bottom: 40px; }
+
+  .page-title { font-size: 36px; }
+
+  .lib-filters { grid-template-columns: minmax(0, 1fr); }
+  .lib-families { justify-content: flex-start; }
+  .lib-grid { grid-template-columns: minmax(0, 1fr); }
+
+  .tea-head { flex-direction: column; }
+  .tea-title { font-size: 42px; }
+  .tea-aside { align-items: stretch; }
+  .tea-aside > :first-child { align-self: flex-end; }
+  .tea-photos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tea-body { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+
+  .add-fields { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+
+  .guide-grid { grid-template-columns: minmax(0, 1fr); }
+  /* Heights were set by resizing on a wide screen; on a phone a block only
+     needs room for its content, with a floor for images and empty blocks. */
+  .guide-block { grid-column: 1 / -1; min-height: min(var(--min-h, 0px), 170px); }
+  .guide-entry-title h1 { font-size: 34px; }
+
+  .research-title { font-size: 34px; }
+}

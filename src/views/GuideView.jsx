@@ -172,7 +172,7 @@ function EntryCard({ block, onOpen, editing, onChange, categories }) {
   return (
     <div style={{ ...cell, cursor: "pointer" }} onClick={() => onOpen(block.id)}>
       <div style={{ minWidth: 0 }}>
-        <div style={{ fontFamily: "var(--font-display)", fontSize: 26, color: c.ink, lineHeight: 1.1, paddingRight: 72 }}>{name || "untitled"}</div>
+        <div className="wrap-anywhere" style={{ fontFamily: "var(--font-display)", fontSize: 26, color: c.ink, lineHeight: 1.1, paddingRight: 72 }}>{name || "untitled"}</div>
         {kanji && <div style={{ fontFamily: "var(--font-display)", fontSize: 18, color: c.line, marginTop: 4 }}>{kanji}</div>}
         <Md style={{ marginTop: 12, fontSize: 14, lineHeight: 1.6, color: "var(--text)" }}>{blurb}</Md>
       </div>
@@ -183,7 +183,6 @@ function EntryCard({ block, onOpen, editing, onChange, categories }) {
 /* ---------------------------------------------------------------- arrangeable wrapper */
 
 function Block({ b, colStep, editing, onEdit, onSave, onDelete, onMove, onResize, children }) {
-  const [hot, setHot] = React.useState(false);
   const [over, setOver] = React.useState(false);
 
   const startResize = (e) => {
@@ -206,12 +205,12 @@ function Block({ b, colStep, editing, onEdit, onSave, onDelete, onMove, onResize
     window.addEventListener("pointerup", up);
   };
 
-  const toolStyle = { opacity: hot ? 1 : 0, transition: "opacity .14s var(--ease, ease)" };
-
+  // Tool visibility (hover on desktop, always on touch) and the column span both
+  // live in layout.css, which narrows the span on smaller screens.
   return (
     <div
-      onMouseEnter={() => setHot(true)}
-      onMouseLeave={() => setHot(false)}
+      className="guide-block"
+      data-span={b.span}
       onDragOver={(e) => {
         e.preventDefault();
         setOver(true);
@@ -225,16 +224,17 @@ function Block({ b, colStep, editing, onEdit, onSave, onDelete, onMove, onResize
       style={{
         position: "relative",
         display: "flex",
-        gridColumn: `span ${b.span}`,
-        minHeight: b.height || undefined,
+        "--span": b.span,
+        "--min-h": b.height ? `${b.height}px` : undefined,
         borderRadius: 20,
         outline: over ? "2px dashed var(--red)" : "2px dashed transparent",
         outlineOffset: 5,
       }}
     >
       {children}
-      <div style={{ position: "absolute", top: 10, right: 12, display: "flex", gap: 4, zIndex: 6, ...toolStyle }}>
+      <div className="block-tool" style={{ position: "absolute", top: 10, right: 12, display: "flex", gap: 4, zIndex: 6 }}>
         <span
+          className="block-grip"
           draggable
           onDragStart={(e) => e.dataTransfer.setData("text/plain", b.id)}
           title="drag to move"
@@ -266,7 +266,8 @@ function Block({ b, colStep, editing, onEdit, onSave, onDelete, onMove, onResize
       <div
         onPointerDown={startResize}
         title="drag to resize"
-        style={{ position: "absolute", right: 3, bottom: 3, width: 18, height: 18, cursor: "nwse-resize", zIndex: 6, display: "flex", alignItems: "flex-end", justifyContent: "flex-end", color: "var(--brown-soft)", fontFamily: "var(--font-mono)", fontSize: 12, lineHeight: 1, ...toolStyle }}
+        className="block-tool block-resize"
+        style={{ position: "absolute", right: 3, bottom: 3, width: 18, height: 18, cursor: "nwse-resize", zIndex: 6, display: "flex", alignItems: "flex-end", justifyContent: "flex-end", color: "var(--brown-soft)", fontFamily: "var(--font-mono)", fontSize: 12, lineHeight: 1 }}
       >
         ⌟
       </div>
@@ -350,8 +351,8 @@ function GuideDetail({ block, onBack, onChange, onDelete, categories }) {
           </div>
         ) : (
           <>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
-              <h1 style={{ margin: 0, fontSize: 44, lineHeight: 1, color: c.ink }}>{name || "untitled"}</h1>
+            <div className="guide-entry-title">
+              <h1 className="wrap-anywhere" style={{ color: c.ink }}>{name || "untitled"}</h1>
               {kanji && <span style={{ fontFamily: "var(--font-display)", fontSize: 28, color: c.line }}>{kanji}</span>}
             </div>
             <Md style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: "var(--text-muted)", fontSize: 16, lineHeight: 1.5 }}>{blurb}</Md>
@@ -522,9 +523,9 @@ export function GuideView() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
       <ErrorNote error={blocks.writeError} onDismiss={blocks.dismissError} />
-      <header style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24 }}>
+      <header className="page-head">
         <div style={{ maxWidth: 640 }}>
-          <h1 style={{ fontSize: 48, lineHeight: 1, margin: 0, color: "var(--red-deep)" }}>the guide</h1>
+          <h1 className="page-title" style={{ color: "var(--red-deep)" }}>the guide</h1>
           <p style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: "var(--text-muted)", marginTop: 8, fontSize: 16 }}>
             what I can use, how I can do, the names of things
           </p>
@@ -534,7 +535,8 @@ export function GuideView() {
 
       <Ornament variant="flourish" color="var(--red)" />
 
-      <div ref={gridRef} style={{ display: "grid", gridTemplateColumns: `repeat(${COLS},minmax(0,1fr))`, gap: 16, alignItems: "stretch" }}>
+      {/* COLS (4) is mirrored in layout.css as the desktop column count. */}
+      <div ref={gridRef} className="guide-grid">
         {blocks.items.map((b) => (
           <Block
             key={b.id}
@@ -582,7 +584,7 @@ export function GuideView() {
             onChange={setGlossary}
           />
         ) : (
-          <dl style={{ margin: 0, display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(320px,1fr))", gap: "18px 32px" }}>
+          <dl className="glossary">
             {glossary.map(({ id, term, definition }) => (
               <div key={id ?? term}>
                 <dt style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--yellow-deep)" }}>{term}</dt>

@@ -108,7 +108,8 @@ export function Ornament({ variant = "flourish", width = 220, color = "var(--bro
 
 /* ---------------------------------------------------------------- surfaces */
 
-const pads = { sm: "16px", md: "24px", lg: "36px" };
+// md and lg read tokens that layout.css narrows on a phone.
+const pads = { sm: "16px", md: "var(--card-pad-md, 24px)", lg: "var(--card-pad-lg, 36px)" };
 const accents = { green: "var(--green)", red: "var(--red)", yellow: "var(--yellow)", brown: "var(--brown)" };
 
 export function Card({ accent = "none", padding = "md", inset = false, as = "div", children, style, className }) {

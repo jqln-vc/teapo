@@ -51,7 +51,7 @@ export function AppShell({ route, onNavigate, teas = [], children }) {
         <Logo size={40} />
       </div>
 
-      <header style={{ borderBottom: "1px solid var(--line)", background: "var(--paper-cool)", padding: "28px 32px 0" }}>
+      <header className="shell-header" style={{ borderBottom: "1px solid var(--line)", background: "var(--paper-cool)" }}>
         <div style={{ maxWidth: 1240, margin: "0 auto", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
           <div className="no-print" style={{ position: "absolute", right: 0, top: 0, display: "flex", gap: 6 }}>
             <button onClick={() => setDark(!dark)} aria-label={dark ? "light theme" : "dark theme"} title={dark ? "light theme" : "dark theme"} style={ghostButton}>
@@ -77,7 +77,7 @@ export function AppShell({ route, onNavigate, teas = [], children }) {
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-            <Ornament variant="dotrule" width={220} color="var(--brown-soft)" />
+            <Ornament variant="dotrule" width={220} color="var(--brown-soft)" className="shell-dotrule" />
             <nav style={{ display: "flex", gap: 4 }}>
               {nav.map((n) => (
                 <button
@@ -99,14 +99,14 @@ export function AppShell({ route, onNavigate, teas = [], children }) {
                 </button>
               ))}
             </nav>
-            <Ornament variant="dotrule" width={220} color="var(--brown-soft)" />
+            <Ornament variant="dotrule" width={220} color="var(--brown-soft)" className="shell-dotrule" />
           </div>
         </div>
       </header>
 
       <div
-        className="no-print"
-        style={{ maxWidth: 1240, margin: "0 auto", padding: "14px 32px 0", display: "flex", justifyContent: "center", gap: 18, flexWrap: "wrap", fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-faint)" }}
+        className="no-print shell-tally"
+        style={{ maxWidth: 1240, margin: "0 auto", display: "flex", justifyContent: "center", gap: 18, flexWrap: "wrap", fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-faint)" }}
       >
         <span style={{ color: "var(--text-muted)" }}>
           {teas.length} {teas.length === 1 ? "tea" : "teas"} kept
@@ -121,7 +121,7 @@ export function AppShell({ route, onNavigate, teas = [], children }) {
         ))}
       </div>
 
-      <main style={{ maxWidth: 1240, margin: "0 auto", padding: "28px 32px 56px" }}>{children}</main>
+      <main className="shell-main" style={{ maxWidth: 1240, margin: "0 auto" }}>{children}</main>
     </div>
   );
 }

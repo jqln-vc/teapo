@@ -49,7 +49,7 @@ export function AddView({ tea, onCancel, onSave }) {
         <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-faint)", letterSpacing: "0.14em", textTransform: "uppercase" }}>
           {editing ? "revisions" : "a new leaf"}
         </div>
-        <h1 style={{ fontSize: 48, lineHeight: 1, margin: "6px 0 0", color: "var(--brown)" }}>{editing ? "edit leaf" : "steep new"}</h1>
+        <h1 className="page-title" style={{ marginTop: 6, color: "var(--brown)" }}>{editing ? "edit leaf" : "steep new"}</h1>
         <p style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", color: "var(--text-muted)", marginTop: 8 }}>
           {editing ? "trim the branch" : "new discovery, another leaf for the tree of knowledge"}
         </p>
@@ -58,7 +58,7 @@ export function AddView({ tea, onCancel, onSave }) {
       <Ornament variant="flourish" color="var(--green)" />
 
       <Card padding="lg">
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
+        <div className="add-fields">
           <Input label="name" placeholder="Da Hong Pao" value={f.name} onChange={set("name")} />
           <Input label="original script" mono placeholder="大红袍 · देवनागरी" value={f.kanji} onChange={set("kanji")} />
 
@@ -113,7 +113,7 @@ export function AddView({ tea, onCancel, onSave }) {
           />
         </div>
 
-        <div style={{ marginTop: 28, display: "flex", gap: 8, justifyContent: "flex-end", alignItems: "center" }}>
+        <div style={{ marginTop: 28, display: "flex", gap: 8, justifyContent: "flex-end", alignItems: "center", flexWrap: "wrap" }}>
           {!f.name && (
             <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-faint)" }}>a name is required</span>
           )}
