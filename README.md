@@ -9,6 +9,8 @@
 A private tea library — a collection of teas, a guide to tools and technique,<br />
 and a notebook of research. Everything you write, arrange and upload is kept.
 
+**[teapo.vercel.app](https://teapo.vercel.app)**
+
 ![React](https://img.shields.io/badge/React-18-4A2B1B?style=flat-square&logo=react&logoColor=F0E6CC)
 ![Vite](https://img.shields.io/badge/Vite-6-4A2B1B?style=flat-square&logo=vite&logoColor=F0E6CC)
 ![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%C2%B7%20Storage%20%C2%B7%20Auth-2E5A28?style=flat-square&logo=supabase&logoColor=F0E6CC)
@@ -58,6 +60,22 @@ npm run preview    # serve dist/ to check the production build
 ```
 
 The app loads straight away, but signing in needs the one-time setup below.
+
+### Deploying
+
+Production is [teapo.vercel.app](https://teapo.vercel.app), imported from this GitHub repo:
+**every push to `main` deploys itself.** Vercel builds with `npm run build` into `dist/`, and
+needs two environment variables, both of type *Config* rather than *Secret* — anything prefixed
+`VITE_` is compiled into the browser bundle, so it can't be secret, and doesn't need to be:
+
+| variable | value |
+| :-- | :-- |
+| `VITE_SUPABASE_URL` | `https://mvkzwijcthbhmrbjgpko.supabase.co` |
+| `VITE_SUPABASE_ANON_KEY` | the `sb_publishable_…` key from **Project Settings → API** |
+
+Never add the `service_role` key, under any name. Supabase's **Redirect URLs** must list
+`https://teapo.vercel.app`, and it should be the **Site URL**, or sign-in can't hand back to
+the app.
 
 <details>
 <summary><b>Setup — Supabase, Google sign-in, API key</b></summary>
